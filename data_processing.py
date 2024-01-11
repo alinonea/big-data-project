@@ -16,14 +16,17 @@ weather_dataframe = weather_dataframe_reader.load()
 def load_dataframes():
     # put your code here
     vehicles_dataframe = vehicles_dataframe_reader.load()
+    vehicles_dataframe = vehicles_dataframe.filter(vehicles_dataframe.speed > 0.0).select("timestamp", "speed").orderBy("timestamp").dropDuplicates()
     trips_dataframe = trips_dataframe_reader.load()
     stops_dataframe = stops_dataframe_reader.load()
+    # stops_dataframe.show()
     stop_times_dataframe = stop_times_dataframe_reader.load()
-    stop_times_dataframe.show()
+    # stop_times_dataframe.show()
     routes_dataframe = routes_dataframe_reader.load()
+    # routes_dataframe.show()
     weather_dataframe = weather_dataframe_reader.load()
     weather_dataframe = weather_dataframe.dropDuplicates().select("timestamp", "temperature", "humidity").orderBy("timestamp")
-    return weather_dataframe
+    return vehicles_dataframe, weather_dataframe
 
 
 
