@@ -9,3 +9,4 @@ auth_provider = PlainTextAuthProvider(username='nodejs-script-at-211125392861', 
 cluster = Cluster(['cassandra.eu-north-1.amazonaws.com'], ssl_context=ssl_context, auth_provider=auth_provider, port=9142)
 session = cluster.connect()
 r = session.execute('select * from ctp_data.vehicles')
+print(r.all())

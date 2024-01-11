@@ -1,19 +1,11 @@
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import avg
-cassandra_jar = './spark-cassandra-connector_2.13-3.4.1.jar'
+from data_processing import load_dataframes
+import threading
 
-spark = SparkSession.builder.appName("Cassandra-AWS") \
-    .config("spark.jars", cassandra_jar) \
-    .config("spark.cassandra.connection.host", "cassandra.eu-north-1.amazonaws.com") \
-    .config("spark.cassandra.connection.port", "9142") \
-    .config("spark.cassandra.auth.username", "nodejs-script-at-211125392861") \
-    .config("spark.cassandra.auth.password", "Ewy3qUp6abAeoEUdQg10CEx/5PJ+Z53eQTT77pjv1og=") \
-    .getOrCreate()
 
-df = spark.read \
-    .format("org.apache.spark.sql.cassandra") \
-    .option("keyspace", "ctp_data") \
-    .option("table", "vehicles") \
-    .load()
+def run_load():
+    thread = threading.Timer(60.0, run_load)  # 60 seconds = 1 minute
+    thread.start()
+    weather_dataframe = load_dataframes()
+    # weather_dataframe.show()
 
-df.show()
+run_load()
