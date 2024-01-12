@@ -16,6 +16,7 @@ weather_dataframe = weather_dataframe_reader.load()
 def load_dataframes():
     # put your code here
     vehicles_dataframe = vehicles_dataframe_reader.load()
+    # vehicles_dataframe.show(1000, truncate= False)
     vehicles_dataframe = vehicles_dataframe.filter(vehicles_dataframe.speed > 0.0).select("timestamp", "speed").orderBy("timestamp").dropDuplicates()
     trips_dataframe = trips_dataframe_reader.load()
     stops_dataframe = stops_dataframe_reader.load()
